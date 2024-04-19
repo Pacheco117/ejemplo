@@ -46,7 +46,9 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -56,6 +58,13 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
       
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_276925E61C624956A422339E13F0B944 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D72A8C6D22B64DF7A8D5F5B08522BA11 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5C624DA6F8CE46679B2A08D76CE0D4F8 }}
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
@@ -63,4 +72,4 @@ jobs:
           app-name: 'Pizzaleo'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_589443217DC0430F94A8E34F1E59BDE1 }}
+          
