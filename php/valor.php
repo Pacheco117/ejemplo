@@ -1,6 +1,6 @@
 <?php
-$hostDB = '127.0.0.1';
-$nombreDB = 'ejemplo';
-$usuarioDB = 'root';
-$contrasenyaDB = '';
+$hostDB = 'pizzaleo-server.mysql.database.azure.com';
+$nombreDB = 'pizzaleo-database';
+$usuarioDB = 'ikolzumiuv';
+$contrasenyaDB = '3Xfswx6Mj+F,75#';
 ?>
